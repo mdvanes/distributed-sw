@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+  </head>
+  <body>
+    <h1>Admin Dashboard</h1>
+
+    <div>
+      clients:
+      <div id="clients"></div>
+    </div>
+
+    <br />
+    <br />
+
+    <textarea>alert("haxx");</textarea>
+
+    <button onClick="javascript:submitWorkload()">submit</button>
+
+    <script>
+      submitWorkload = async () => {
+        const workload = document.querySelector("textarea").value;
+        console.log("submitting workload:", workload);
+
+        try {
+          const response = await fetch("/api/set-workload", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ workload }),
+          });
+          const data = await response.json();
+          console.log("response", data.clients);
+          document.getElementById("clients").innerText = data.clients;
+        } catch (error) {
+          console.error("error submitting workload", error);
+        }
+      };
+    </script>
+  </body>
+</html>
