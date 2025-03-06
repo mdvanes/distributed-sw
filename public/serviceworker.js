@@ -17,4 +17,11 @@ self.addEventListener("activate", async (event) => {
   } catch (err) {
     console.log(err);
   }
+
+  const events = new EventSource("/events");
+
+  events.onmessage = (event) => {
+    // const parsedData = JSON.parse(event.data);
+    console.log('swdata:', event.data);
+  };
 });
