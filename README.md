@@ -6,7 +6,7 @@ This could theoretically turn the service workers on clients into a botnet.
 
 ## Usage
 
-- Start server: ...
+- Start server: `npx nx serve swapi-botnet`
 - Start a cloudflared tunnel: cloudflared tunnel --url http://localhost:3000
 - Open multiple browsers sessions / different browsers with `cloudflare-url`/ and one with the admin dashboard `cloudflare-url`/dashboard
 - Use the dashboard to monitor the connected clients, and send a workload.

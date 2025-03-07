@@ -1,6 +1,6 @@
 {
   "name": "swapi-botnet",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "targets": {
     "build": {
@@ -17,15 +17,15 @@
       },
       "outputs": [
         "{options.outputPath}",
-        "{workspaceRoot}/dist/packages/swapi-botnet/.nitro",
-        "{workspaceRoot}/dist/packages/swapi-botnet/ssr",
-        "{workspaceRoot}/dist/packages/swapi-botnet/analog"
+        "{workspaceRoot}/dist/swapi-botnet/.nitro",
+        "{workspaceRoot}/dist/swapi-botnet/ssr",
+        "{workspaceRoot}/dist/swapi-botnet/analog"
       ],
       "options": {
-        "main": "packages/swapi-botnet/src/main.ts",
-        "configFile": "packages/swapi-botnet/vite.config.ts",
-        "outputPath": "dist/packages/swapi-botnet/client",
-        "tsConfig": "packages/swapi-botnet/tsconfig.app.json"
+        "main": "swapi-botnet/src/main.ts",
+        "configFile": "swapi-botnet/vite.config.ts",
+        "outputPath": "dist/swapi-botnet/client",
+        "tsConfig": "swapi-botnet/tsconfig.app.json"
       }
     },
     "serve": {
@@ -47,9 +47,11 @@
     },
     "test": {
       "executor": "@analogjs/vitest-angular:test",
-      "outputs": ["{projectRoot}/coverage"]
+      "outputs": [
+        "{projectRoot}/coverage"
+      ]
     }
   },
   "tags": [],
-  "sourceRoot": "packages/swapi-botnet/src"
+  "sourceRoot": "./swapi-botnet/src"
 }

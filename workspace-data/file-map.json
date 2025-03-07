@@ -7,16 +7,20 @@
     "projectFileMap": {},
     "nonProjectFiles": [
       {
+        "file": ".editorconfig",
+        "hash": "5443105041930014821"
+      },
+      {
         "file": ".gitignore",
         "hash": "6147899740314209172"
       },
       {
         "file": ".vscode/extensions.json",
-        "hash": "5673190821613406900"
+        "hash": "3833545590435012078"
       },
       {
         "file": "README.md",
-        "hash": "3887116898493840071"
+        "hash": "756252657128915005"
       },
       {
         "file": "nx.json",
@@ -24,15 +28,11 @@
       },
       {
         "file": "package-lock.json",
-        "hash": "4073957765819274991"
+        "hash": "12410880800009874807"
       },
       {
         "file": "package.json",
-        "hash": "17434707554759712907"
-      },
-      {
-        "file": "packages/.gitkeep",
-        "hash": "3244421341483603138"
+        "hash": "14853300614697405513"
       }
     ]
   }
