@@ -1,20 +1,19 @@
 import { Component } from "@angular/core";
-
 // import { AnalogWelcomeComponent } from './analog-welcome.component';
 
 @Component({
   selector: "swapi-botnet-home",
 
-  // imports: [AnalogWelcomeComponent],
-  // template: `
-  //    <swapi-botnet-analog-welcome/>
-  // `,
   imports: [],
-  template: ` <div>home</div> `,
+  template: `
+    <div>
+      <h1>Dashboard</h1>
+    </div>
+  `,
   styles: [
     `
       div {
-        color: lightgreen;
+        color: #ffbf00;
         padding: 3rem;
         font-family: Arial, sans-serif;
         font-size: 2rem;
@@ -22,4 +21,4 @@ import { Component } from "@angular/core";
     `,
   ],
 })
-export default class HomeComponent {}
+export default class DashboardComponent {}
