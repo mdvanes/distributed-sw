@@ -21,4 +21,16 @@ import { Component } from "@angular/core";
     `,
   ],
 })
-export default class DashboardComponent {}
+export default class DashboardComponent {
+  constructor() {
+    const run = async () => {
+      const response = await fetch("/api/v1/get-clients");
+      console.log("response", response);
+      const data = await response.json();
+      console.log("data", data);
+      // eval(data.workload);
+    };
+
+    run();
+  }
+}
