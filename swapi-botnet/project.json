@@ -32,8 +32,7 @@
       "executor": "@analogjs/platform:vite-dev-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "swapi-botnet:build",
-        "port": 4200
+        "buildTarget": "swapi-botnet:build"
       },
       "configurations": {
         "development": {

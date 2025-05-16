@@ -20,9 +20,16 @@ export default defineConfig(({ mode }) => {
       target: ['es2020'],
     },
     server: {
+      port: 4200,
+      // hmr: {
+      //   port: 4201,
+      //   // protocol: 'ws',
+      //   // clientPort: 4201,
+      // },
       fs: {
         allow: ['.'],
       },
+      // allowedHosts: ['.trycloudflare.com'],
     },    
     plugins: [
       
@@ -32,7 +39,10 @@ export default defineConfig(({ mode }) => {
             '/': {
               prerender: false,
             }
-          }
+          },
+          // experimental: {
+          //   websocket: true,
+          // },
         }
       }),
       
