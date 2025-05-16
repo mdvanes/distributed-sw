@@ -1,14 +1,15 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 
-// import { AnalogWelcomeComponent } from './analog-welcome.component';
+type NavigatorExtended =
+  | {
+      userAgentData?: {
+        brands?: { brand: string; version: string }[];
+      };
+    }
+  | undefined;
 
 @Component({
   selector: "swapi-botnet-home",
-
-  // imports: [AnalogWelcomeComponent],
-  // template: `
-  //    <swapi-botnet-analog-welcome/>
-  // `,
   imports: [],
   template: ` <div><h1>home</h1></div> `,
   styles: [
@@ -22,7 +23,7 @@ import { Component } from "@angular/core";
     `,
   ],
 })
-export default class HomeComponent {
+export default class HomeComponent implements OnInit {
   constructor() {
     console.log("HomeComponent constructor");
 
@@ -78,5 +79,9 @@ export default class HomeComponent {
     }
 
     notifyMe();
+  }
+
+  ngOnInit() {
+    console.log("HomeComponent ngOnInit");
   }
 }

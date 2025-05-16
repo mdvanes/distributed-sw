@@ -2,7 +2,7 @@ import { defineEventHandler, createEventStream, EventStreamMessage } from "h3";
 import { createLog } from "../../../../util/log";
 // import { getSmartEntities } from '../../../../util/smart-entities';
 
-export let clients: { id: number; response: unknown }[] = [];
+export let clients: { id: number; response: unknown; brands?: string }[] = [];
 let facts: string[] = [];
 
 const log = createLog("events        ");

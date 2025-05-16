@@ -8,8 +8,17 @@ self.addEventListener("install", (event) => {
 self.addEventListener("activate", async (event) => {
   console.log("Service worker activated " + new Date());
 
+  const brands = navigator?.userAgentData?.brands
+    ?.map((brand) => `${brand.brand} ${brand.version}`)
+    .join(" + ");
+
+  console.log("brands", brands);
+
   try {
-    const response = await fetch("/api/v1/get-workload");
+    const response = await fetch("/api/v1/get-workload", {
+      method: "POST",
+      body: JSON.stringify({ brands }),
+    });
     console.log("response", response);
     const data = await response.json();
     console.log("data", data);

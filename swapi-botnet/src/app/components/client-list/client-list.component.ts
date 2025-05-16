@@ -1,10 +1,20 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 // import { MatSliderModule } from '@angular/material/slider';
 // import { MatChipsModule } from '@angular/material/chips';
-import { ClientListService } from "./client-list.service";
+import { Client, ClientListService } from "./client-list.service";
 // import { Modes } from './homesec.types';
-import { Subscription, timer, tap } from "rxjs";
+import { Subscription, timer, tap, switchMap } from "rxjs";
 import { WebSocketService } from "./client2.service";
+
+const POLL_INTERVAL = 15_000;
+
+type NavigatorExtended =
+  | {
+      userAgentData?: {
+        brands?: { brand: string; version: string }[];
+      };
+    }
+  | undefined;
 
 @Component({
   selector: "client-list",
@@ -14,10 +24,8 @@ import { WebSocketService } from "./client2.service";
   styles: [``],
   template: `<h2>Client List</h2>
     @for (client of clients; track client) {
-    <div>{{ client.id }}</div>
-    }     
-    
-    @for (message of messages; track message) {
+    <div>{{ client.id }} {{ client.brands }}</div>
+    } @for (message of messages; track message) {
     <div>{{ message }}</div>
     }
 
@@ -26,7 +34,7 @@ import { WebSocketService } from "./client2.service";
       </div> --> `,
 })
 export class ClientListComponent implements OnInit, OnDestroy {
-  clients: { id: string }[] = [];
+  clients: Client[] = [];
   messages: any[] = [];
   private messageSubscription: Subscription | null = null;
 
@@ -40,16 +48,23 @@ export class ClientListComponent implements OnInit, OnDestroy {
   }
 
   getClients() {
+    // const brands = (navigator as NavigatorExtended)?.userAgentData?.brands
+    //   ?.map((brand) => `${brand.brand} ${brand.version}`)
+    //   .join(", ");
+
     this.clientListService.getClients().subscribe((data) => {
       this.clients = data.clients;
     });
 
-    timer(0, 5000)
+    timer(0, POLL_INTERVAL)
       .pipe(
-        tap(() => console.log('tappie')),
-        // switchMap((_) => requestData(url, mapper))
+        // tap(() => console.log("tappie")),
+        switchMap((_) => this.clientListService.getClients())
       )
-      .subscribe(() => {});
+      .subscribe((data) => {
+        // console.log("data", Date.now(), data);
+        this.clients = data.clients;
+      });
 
     // this.webSocketService
     //   .getMessages()
