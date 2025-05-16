@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 // import { MatChipsModule } from '@angular/material/chips';
 import { ClientListService } from "./client-list.service";
 // import { Modes } from './homesec.types';
-import { Subscription } from "rxjs";
+import { Subscription, timer, tap } from "rxjs";
 import { WebSocketService } from "./client2.service";
 
 @Component({
@@ -15,8 +15,8 @@ import { WebSocketService } from "./client2.service";
   template: `<h2>Client List</h2>
     @for (client of clients; track client) {
     <div>{{ client.id }}</div>
-    }
-
+    }     
+    
     @for (message of messages; track message) {
     <div>{{ message }}</div>
     }
@@ -40,21 +40,26 @@ export class ClientListComponent implements OnInit, OnDestroy {
   }
 
   getClients() {
-    // this.clientListService.getClients().subscribe((data) => {
-    //   this.clients = data.clients;
-    // });
+    this.clientListService.getClients().subscribe((data) => {
+      this.clients = data.clients;
+    });
 
-    // this.messageSubscription = 
-    this.webSocketService
-      .getMessages()
-      .subscribe((message) => {
-        this.messages.push(message);
-      });
+    timer(0, 5000)
+      .pipe(
+        tap(() => console.log('tappie')),
+        // switchMap((_) => requestData(url, mapper))
+      )
+      .subscribe(() => {});
+
+    // this.webSocketService
+    //   .getMessages()
+    //   .subscribe((message) => {
+    //     this.messages.push(message);
+    //   });
   }
 
   ngOnDestroy() {
     // Unsubscribe from WebSocket messages and close the connection
-    // this.messageSubscription?.unsubscribe();
     // this.webSocketService.closeConnection();
   }
 }

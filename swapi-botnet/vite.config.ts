@@ -21,11 +21,11 @@ export default defineConfig(({ mode }) => {
     },
     server: {
       port: 4200,
-      // hmr: {
-      //   port: 4201,
-      //   // protocol: 'ws',
-      //   // clientPort: 4201,
-      // },
+      hmr: {
+        port: 4201,
+        // protocol: 'ws',
+        // clientPort: 4201,
+      },
       fs: {
         allow: ['.'],
       },

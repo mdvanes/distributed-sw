@@ -18,15 +18,17 @@ self.addEventListener("activate", async (event) => {
     console.log(err);
   }
 
-  const events = new EventSource("/api/v1/events");
+  // For now EventSource does not work (Nitro does not support it on https) and Web Sockets don't work either (the server crashes), so just use long polling for now.
+
+  // const events = new EventSource("/api/v1/events");
 
   // This works for anonymous eventStream.push(JSON.stringify(data)), but not for named events
-  events.onmessage = (event) => {
-    // const parsedData = JSON.parse(event.data);
-    console.log("swdata:", event.data);
-  };
+  // events.onmessage = (event) => {
+  //   // const parsedData = JSON.parse(event.data);
+  //   console.log("swdata:", event.data);
+  // };
 
-  events.addEventListener("new-workload", (event) => {
-    console.log("new-workload:", event.data);
-  });
+  // events.addEventListener("new-workload", (event) => {
+  //   console.log("new-workload:", event.data);
+  // });
 });
