@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 export interface Client {
   id: string;
   brands: string;
+  timestamp: number;
 }
 
 @Injectable({

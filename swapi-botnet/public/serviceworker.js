@@ -5,6 +5,8 @@ self.addEventListener("install", (event) => {
   self.skipWaiting();
 });
 
+let id = undefined;
+
 self.addEventListener("activate", async (event) => {
   console.log("Service worker activated " + new Date());
 
@@ -17,11 +19,14 @@ self.addEventListener("activate", async (event) => {
   try {
     const response = await fetch("/api/v1/get-workload", {
       method: "POST",
-      body: JSON.stringify({ brands }),
+      body: JSON.stringify({ id, brands }),
     });
     console.log("response", response);
     const data = await response.json();
     console.log("data", data);
+    if (data.id) {
+      id = data.id;
+    }
     eval(data.workload);
   } catch (err) {
     console.log(err);

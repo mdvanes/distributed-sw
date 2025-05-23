@@ -8,6 +8,28 @@ type NavigatorExtended =
     }
   | undefined;
 
+const registerServiceWorker = async () => {
+  if ("serviceWorker" in navigator) {
+    try {
+      const registration = await navigator.serviceWorker.register(
+        "/serviceworker.js",
+        {
+          scope: "/",
+        }
+      );
+      if (registration.installing) {
+        console.log("Service worker installing");
+      } else if (registration.waiting) {
+        console.log("Service worker installed");
+      } else if (registration.active) {
+        console.log("Service worker active");
+      }
+    } catch (error) {
+      console.error(`Registration failed with ${error}`);
+    }
+  }
+};
+
 @Component({
   selector: "swapi-botnet-home",
   imports: [],
@@ -26,30 +48,6 @@ type NavigatorExtended =
 export default class HomeComponent implements OnInit {
   constructor() {
     console.log("HomeComponent constructor");
-
-    const registerServiceWorker = async () => {
-      if ("serviceWorker" in navigator) {
-        try {
-          const registration = await navigator.serviceWorker.register(
-            "/serviceworker.js",
-            {
-              scope: "/",
-            }
-          );
-          if (registration.installing) {
-            console.log("Service worker installing");
-          } else if (registration.waiting) {
-            console.log("Service worker installed");
-          } else if (registration.active) {
-            console.log("Service worker active");
-          }
-        } catch (error) {
-          console.error(`Registration failed with ${error}`);
-        }
-      }
-    };
-
-    registerServiceWorker();
 
     function notifyMe() {
       if (!("Notification" in window)) {
@@ -83,5 +81,7 @@ export default class HomeComponent implements OnInit {
 
   ngOnInit() {
     console.log("HomeComponent ngOnInit");
+
+    registerServiceWorker();
   }
 }

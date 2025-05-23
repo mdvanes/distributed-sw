@@ -2,19 +2,10 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 // import { MatSliderModule } from '@angular/material/slider';
 // import { MatChipsModule } from '@angular/material/chips';
 import { Client, ClientListService } from "./client-list.service";
-// import { Modes } from './homesec.types';
 import { Subscription, timer, tap, switchMap } from "rxjs";
 import { WebSocketService } from "./client2.service";
 
 const POLL_INTERVAL = 15_000;
-
-type NavigatorExtended =
-  | {
-      userAgentData?: {
-        brands?: { brand: string; version: string }[];
-      };
-    }
-  | undefined;
 
 @Component({
   selector: "client-list",
@@ -23,15 +14,24 @@ type NavigatorExtended =
   imports: [],
   styles: [``],
   template: `<h2>Client List</h2>
-    @for (client of clients; track client) {
-    <div>{{ client.id }} {{ client.brands }}</div>
-    } @for (message of messages; track message) {
-    <div>{{ message }}</div>
-    }
-
-    <!-- <div *ngFor="let message of messages">
-        {{ message }}
-      </div> --> `,
+    <table>
+      <thead>
+        <tr>
+          <th>Client ID</th>
+          <th>Brands</th>
+          <th>Timestamp</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (client of clients; track client) {
+        <tr>
+          <td>{{ client.id }}</td>
+          <td>{{ client.brands }}</td>
+          <td>{{ client.timestamp }}</td>
+        </tr>
+        }
+      </tbody>
+    </table>`,
 })
 export class ClientListComponent implements OnInit, OnDestroy {
   clients: Client[] = [];
@@ -48,10 +48,6 @@ export class ClientListComponent implements OnInit, OnDestroy {
   }
 
   getClients() {
-    // const brands = (navigator as NavigatorExtended)?.userAgentData?.brands
-    //   ?.map((brand) => `${brand.brand} ${brand.version}`)
-    //   .join(", ");
-
     this.clientListService.getClients().subscribe((data) => {
       this.clients = data.clients;
     });

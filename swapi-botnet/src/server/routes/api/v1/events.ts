@@ -2,10 +2,21 @@ import { defineEventHandler, createEventStream, EventStreamMessage } from "h3";
 import { createLog } from "../../../../util/log";
 // import { getSmartEntities } from '../../../../util/smart-entities';
 
-export let clients: { id: number; response: unknown; brands?: string }[] = [];
+type Client = {
+  id: number;
+  response: unknown;
+  brands?: string;
+  timestamp?: number;
+};
+
+export let clients: Client[] = [];
 let facts: string[] = [];
 
 const log = createLog("events        ");
+
+export const overwriteClients = (newClients: Client[]) => {
+  clients = newClients;
+};
 
 export default defineEventHandler(async (event) => {
   const eventStream = createEventStream(event);

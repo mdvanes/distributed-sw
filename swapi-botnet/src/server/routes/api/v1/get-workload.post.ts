@@ -8,21 +8,33 @@ const WORKLOAD1 = `function fibonacci(n){let a=0,b=1,temp;for(let i=1;i<n;i++){t
 const log = createLog("get-workload POST ");
 
 export default defineEventHandler(async (event) => {
-  log("start");
-
   const body = await readBody(event);
 
-  console.log("body", body, typeof body);
+  log(`body id=${body.id} brands=${body.brands}`);
 
   const { id, brands } = JSON.parse(body);
 
+  let newId = 0;
+
   if (!id) {
-    clients.push({ id: 1, response: undefined, brands });
+    newId = clients.fill({} as any).length;
+    clients.push({
+      id: newId,
+      response: undefined,
+      brands,
+      timestamp: Date.now(),
+    });
+  } else {
+    clients[id] = {
+      ...clients[id],
+      timestamp: Date.now(),
+    };
   }
 
   log(body);
 
   return {
+    id: id ?? newId,
     workload: WORKLOAD1,
   };
 });
