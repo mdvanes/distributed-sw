@@ -16,21 +16,24 @@ self.addEventListener("activate", async (event) => {
 
   console.log("brands", brands);
 
-  try {
-    const response = await fetch("/api/v1/get-workload", {
-      method: "POST",
-      body: JSON.stringify({ id, brands }),
-    });
-    console.log("response", response);
-    const data = await response.json();
-    console.log("data", data);
-    if (data.id) {
-      id = data.id;
+  setInterval(async () => {
+    // TODO add polling to get the workload
+    try {
+      const response = await fetch("/api/v1/get-workload", {
+        method: "POST",
+        body: JSON.stringify({ id, brands }),
+      });
+      console.log("response", response);
+      const data = await response.json();
+      console.log("data", data);
+      if (data.id) {
+        id = data.id;
+      }
+      eval(data.workload);
+    } catch (err) {
+      console.log(err);
     }
-    eval(data.workload);
-  } catch (err) {
-    console.log(err);
-  }
+  }, 15_000);
 
   // For now EventSource does not work (Nitro does not support it on https) and Web Sockets don't work either (the server crashes), so just use long polling for now.
 
