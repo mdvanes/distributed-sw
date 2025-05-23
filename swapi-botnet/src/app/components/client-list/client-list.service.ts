@@ -20,4 +20,11 @@ export class ClientListService {
   getClients() {
     return this.http.get<{ clients: Client[] }>("/api/v1/get-clients");
   }
+
+  setWorkload(workload: string) {
+    return this.http.post<{ workload: string }>(
+      "/api/v1/set-workload",
+      JSON.stringify(workload)
+    );
+  }
 }
